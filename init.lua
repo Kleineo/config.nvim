@@ -19,6 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 --
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
+
 require('lazy').setup({
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
@@ -34,7 +35,6 @@ require('lazy').setup({
 
       { 'j-hui/fidget.nvim', opts = {} },
 
-      -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
     },
   },
@@ -80,6 +80,9 @@ require('lazy').setup({
     'rose-pine/neovim',
     name = 'rose-pine',
     config = function()
+      require('rose-pine').setup({
+        variant = 'moon'
+      })
       vim.cmd('colorscheme rose-pine')
     end
   },
@@ -97,7 +100,7 @@ require('lazy').setup({
     },
   },
 
-  { -- Add indentation guides even on blank lines
+--[[  { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
@@ -106,6 +109,7 @@ require('lazy').setup({
       show_trailing_blankline_indent = false,
     },
   },
+--]]
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
