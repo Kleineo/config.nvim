@@ -20,13 +20,15 @@ return {
     build = ":TSUpdate",
   },
 
+  'nvim-treesitter/playground',
 
-  -- /misc 
   {
     'hrsh7th/nvim-cmp',
     dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   },
 
+
+  -- /misc 
   {
     'folke/which-key.nvim',
     config = function()
@@ -51,5 +53,7 @@ return {
   },
 
   { 'numToStr/Comment.nvim', opts = {} },
+  'theprimeagen/harpoon',
+  'mbbill/undotree',
 }
 

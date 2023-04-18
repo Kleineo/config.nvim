@@ -1,4 +1,3 @@
-
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -23,7 +22,10 @@ require('lazy').setup({
 })
 
 require('neodev').setup()
+pcall(require('telescope').load_extension, 'fzf')
 
 require('after.plugin.gitsigns')
 require('after.plugin.telescope')
 require('after.plugin.treesitter')
+require('after.plugin.harpoon')
+require('after.plugin.lsp')

@@ -1,3 +1,4 @@
+-- WHY DOES THIS NOT WORK INSIDE THE `lazy.lua` FILE IT DRIVES ME INSANE
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
@@ -9,3 +10,4 @@ return {
     'folke/neodev.nvim',
   },
 }
+
