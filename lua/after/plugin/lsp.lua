@@ -34,14 +34,15 @@ end
 local servers = {
   clangd = {},
   gopls = {},
-  rust_analyzer = {},
-  tsserver = {},
-
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
     },
+    rust_analyzer = {},
+    tailwindcss = {},
+    tsserver = {},
+    volar = {},
   },
 }
 
@@ -62,4 +63,8 @@ mason_lspconfig.setup_handlers {
       settings = servers[server_name],
     }
   end,
+}
+
+require 'lspconfig'.volar.setup {
+  filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }
 }
