@@ -16,6 +16,8 @@ vim.cmd('highlight SignColumn ctermbg=none guibg=none')
 vim.cmd('highlight LineNr ctermbg=none guibg=none')
 vim.cmd('highlight CursorLineNr ctermbg=none guibg=none')
 vim.cmd('highlight GitSignsAdd ctermbg=none guibg=none')
+vim.cmd('highlight GitSignsChange ctermbg=none guibg=none')
+vim.cmd('highlight GitSignsDelete ctermbg=none guibg=none')
 
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
