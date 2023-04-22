@@ -1,5 +1,4 @@
 return {
-  -- /git
   'tpope/vim-fugitive',
   'tpope/vim-sleuth',
   'lewis6991/gitsigns.nvim',
@@ -24,7 +23,6 @@ return {
     end
   },
 
-  -- /misc
   {
     'folke/which-key.nvim',
     config = function()
@@ -46,7 +44,9 @@ return {
         section_separators = '',
       },
       sections = {
-        lualine_a = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch' },
+        lualine_c = {
           {
             'filename',
             path = 1,
