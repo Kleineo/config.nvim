@@ -52,6 +52,7 @@ return {
 
   { 'numToStr/Comment.nvim', opts = {} },
   'theprimeagen/harpoon',
+  'theprimeagen/vim-be-good',
   'mbbill/undotree',
 }
 
