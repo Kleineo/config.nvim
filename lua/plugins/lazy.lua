@@ -17,8 +17,14 @@ return {
     dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   },
 
+  {
+    "windwp/nvim-autopairs",
+    config = function()
+      require("nvim-autopairs").setup {}
+    end
+  },
 
-  -- /misc 
+  -- /misc
   {
     'folke/which-key.nvim',
     config = function()
@@ -55,4 +61,3 @@ return {
   'theprimeagen/vim-be-good',
   'mbbill/undotree',
 }
-
