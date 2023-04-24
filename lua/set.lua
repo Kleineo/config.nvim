@@ -1,3 +1,6 @@
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
 vim.opt.guicursor = ''
 
 vim.o.rnu = true
@@ -26,15 +29,10 @@ vim.opt.signcolumn = 'yes'
 vim.opt.isfname:append('@-@')
 
 vim.o.updatetime = 50
--- vim.o.updatetime = 250
--- vim.o.timeout = true
--- vim.o.timeoutlen = 300
 
 -- vim.opt.colorcolumn = '80'
 
 vim.o.mouse = 'a'
-
--- vim.o.clipboard = 'unnamedplus'
 
 vim.o.ignorecase = true
 vim.o.smartcase = true
