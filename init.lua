@@ -1,3 +1,6 @@
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
 require('remaps')
 require('set')
 require('lazy_setup')
