@@ -1,21 +1,25 @@
 require('utils')
 
 local build = GetOS() == 'Windows'
-and 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
-or 'make'
+    and
+    'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+    or 'make'
 
 return {
   {
     'nvim-telescope/telescope.nvim',
     version = '*',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function ()
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
       local builtin = require('telescope.builtin')
 
       vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
       vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = 'Project Files' })
       vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Search Git files' })
-      vim.keymap.set('n', '<leader>pw', function ()
+      vim.keymap.set('n', '<leader>pw', function()
         builtin.grep_string({ search = vim.fn.input('Grep > ') })
       end, { desc = 'Find word' })
 
