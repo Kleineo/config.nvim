@@ -25,7 +25,14 @@ return {
       vim.keymap.set('n', '<leader>pd', builtin.diagnostics, { desc = 'Search Diagnostics' })
 
       vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
-      vim.keymap.set('n', '<leader><space>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+
+      vim.keymap.set('n', '<leader><space>', function()
+        builtin.buffers {
+          only_cwd = true,
+          sort_lastused = true,
+        }
+      end, { desc = '[ ] Find existing buffers' })
+
       vim.keymap.set('n', '<leader>/', function()
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
           winblend = 10,
@@ -33,6 +40,9 @@ return {
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
 
+      vim.keymap.set('n', '<leader>cc', function ()
+        builtin.colorscheme { enable_preview = true }
+      end, { desc = 'List color schemes' })
 
       require('telescope').load_extension('fzf')
     end
