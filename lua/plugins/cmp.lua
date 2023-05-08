@@ -1,8 +1,9 @@
 return {
+  -- 'hrsh7th/cmp-nvim-lsp-signature-help',
   'hrsh7th/nvim-cmp',
-  dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+  dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip', 'hrsh7th/cmp-nvim-lsp-signature-help' },
 
-  config = function ()
+  config = function()
     local cmp_autopairs = require('nvim-autopairs.completion.cmp')
     local cmp = require 'cmp'
     local luasnip = require 'luasnip'
@@ -50,8 +51,8 @@ return {
       sources = {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
+        { name = 'nvim_lsp_signature_help' }
       },
     }
   end
 }
-
