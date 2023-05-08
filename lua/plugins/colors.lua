@@ -1,9 +1,18 @@
 return {
+  -- {
+  --   'nyngwang/nvimgelion',
+  --   name = 'nvimgelion',
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd.colorscheme('nvimgelion')
+  --   end
+  -- },
   {
-    'nyngwang/nvimgelion',
-    name = 'nvimgelion',
-    config = function ()
-      vim.cmd.colorscheme('nvimgelion')
+    'folke/tokyonight.nvim',
+    name = 'tokyonight',
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme('tokyonight-night')
     end
   },
   -- {
@@ -12,16 +21,16 @@ return {
   --   priority = 1000,
   --   config = function()
   --     require('rose-pine').setup({
-  --       variant = 'moon'
+  --       -- variant = 'moon'
   --     })
   --     vim.cmd.colorscheme('rose-pine')
   --   end
   -- },
   -- {
-  --     'navarasu/onedark.nvim',
-  --     priority = 1000,
-  --     config = function()
-  --       vim.cmd.colorscheme 'onedark'
-  --     end,
-  --   },
+  --   'navarasu/onedark.nvim',
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd.colorscheme 'onedark'
+  --   end,
+  -- },
 }
