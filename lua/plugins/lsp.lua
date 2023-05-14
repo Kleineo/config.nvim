@@ -4,10 +4,10 @@ return {
     { 'williamboman/mason.nvim', config = true },
     'williamboman/mason-lspconfig.nvim',
 
-    { 'j-hui/fidget.nvim', opts = {} },
+    { 'j-hui/fidget.nvim',       opts = {} },
     'folke/neodev.nvim',
   },
-  config = function ()
+  config = function()
     local on_attach = function(_, bufnr)
       local nmap = function(keys, func, desc)
         if desc then
@@ -34,10 +34,13 @@ return {
       nmap('<leader>wl', function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
       end, '[W]orkspace [L]ist Folders')
+
+      vim.keymap.set({ 'n', 'i' }, '<c-k>', vim.lsp.buf.signature_help, { desc = 'Signature Documentation' })
     end
 
     local servers = {
       clangd = {},
+      -- emmet
       gopls = {},
       lua_ls = {
         Lua = {
@@ -62,19 +65,47 @@ return {
       ensure_installed = vim.tbl_keys(servers),
     }
 
+    local lsp = require('lspconfig')
     mason_lspconfig.setup_handlers {
       function(server_name)
-        require('lspconfig')[server_name].setup {
+        lsp[server_name].setup {
           capabilities = capabilities,
           on_attach = on_attach,
           settings = servers[server_name],
         }
       end,
-    }
-
-    require 'lspconfig'.volar.setup {
-      filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }
+      ['volar'] = function()
+        lsp.volar.setup({
+          filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
+          on_attach = function()
+            on_attach()
+            for _, server in ipairs(vim.lsp.get_active_clients()) do
+              if server.name == 'tsserver' then vim.lsp.get_client_by_id(server.id).stop() end
+            end
+          end,
+          capabilities = capabilities
+        })
+      end,
+      ['eslint'] = function()
+        lsp.eslint.setup({
+          on_attach = on_attach,
+          capabilities = capabilities,
+          filetypes = { "javascript", "typescript", "typescriptreact", "vue" },
+          settings = {
+            codeActionOnSave = {
+              enable = true,
+              mode = "all"
+            }
+          }
+        })
+      end,
+      ['emmet_ls'] = function()
+        lsp.emmet_ls.setup({
+          on_attach = on_attach,
+          capabilities = capabilities,
+          filetypes = { "vue", "html", "typescriptreact", "javascriptreact", "css", "sass", "scss" }
+        })
+      end
     }
   end
 }
-
