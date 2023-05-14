@@ -40,10 +40,6 @@ return {
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
 
-      vim.keymap.set('n', '<leader>cc', function ()
-        builtin.colorscheme { enable_preview = true }
-      end, { desc = 'List color schemes' })
-
       require('telescope').load_extension('fzf')
     end
   },
