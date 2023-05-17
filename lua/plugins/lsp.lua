@@ -4,7 +4,7 @@ return {
     { 'williamboman/mason.nvim', config = true },
     'williamboman/mason-lspconfig.nvim',
 
-    { 'j-hui/fidget.nvim',       opts = {} },
+    { 'j-hui/fidget.nvim', opts = {} },
     'folke/neodev.nvim',
   },
   config = function()
@@ -39,8 +39,7 @@ return {
     end
 
     local servers = {
-      clangd = {},
-      -- emmet
+      emmet_ls = {},
       gopls = {},
       lua_ls = {
         Lua = {
@@ -65,7 +64,7 @@ return {
       ensure_installed = vim.tbl_keys(servers),
     }
 
-    local lsp = require('lspconfig')
+    local lsp = require 'lspconfig'
     mason_lspconfig.setup_handlers {
       function(server_name)
         lsp[server_name].setup {
@@ -75,37 +74,19 @@ return {
         }
       end,
       ['volar'] = function()
-        lsp.volar.setup({
+        lsp.volar.setup {
           filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
-          on_attach = function()
-            on_attach()
+          on_attach = function(_, bufnr)
             for _, server in ipairs(vim.lsp.get_active_clients()) do
-              if server.name == 'tsserver' then vim.lsp.get_client_by_id(server.id).stop() end
+              if server.name == 'tsserver' then
+                vim.lsp.get_client_by_id(server.id).stop()
+              end
             end
+            on_attach(_, bufnr)
           end,
-          capabilities = capabilities
-        })
-      end,
-      ['eslint'] = function()
-        lsp.eslint.setup({
-          on_attach = on_attach,
           capabilities = capabilities,
-          filetypes = { "javascript", "typescript", "typescriptreact", "vue" },
-          settings = {
-            codeActionOnSave = {
-              enable = true,
-              mode = "all"
-            }
-          }
-        })
+        }
       end,
-      ['emmet_ls'] = function()
-        lsp.emmet_ls.setup({
-          on_attach = on_attach,
-          capabilities = capabilities,
-          filetypes = { "vue", "html", "typescriptreact", "javascriptreact", "css", "sass", "scss" }
-        })
-      end
     }
-  end
+  end,
 }

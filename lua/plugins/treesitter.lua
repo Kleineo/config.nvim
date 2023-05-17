@@ -3,7 +3,7 @@ return {
     'nvim-treesitter/nvim-treesitter',
     dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
     build = ":TSUpdate",
-    config = function ()
+    config = function()
       require('nvim-treesitter.configs').setup {
         ensure_installed = {
           'c', 'cpp',
@@ -23,6 +23,7 @@ return {
         auto_install = true,
         sync_install = false,
 
+        autotag = { enable = true },
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
@@ -39,7 +40,6 @@ return {
           },
         },
       }
-
     end
   },
 
