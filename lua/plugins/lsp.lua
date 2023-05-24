@@ -4,7 +4,7 @@ return {
     { 'williamboman/mason.nvim', config = true },
     'williamboman/mason-lspconfig.nvim',
 
-    { 'j-hui/fidget.nvim', opts = {} },
+    { 'j-hui/fidget.nvim',       opts = {} },
     'folke/neodev.nvim',
   },
   config = function()
@@ -49,8 +49,6 @@ return {
       },
       rust_analyzer = {},
       tailwindcss = {},
-      tsserver = {},
-      volar = {},
     }
 
     require('neodev').setup()
@@ -76,15 +74,24 @@ return {
       ['volar'] = function()
         lsp.volar.setup {
           filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
+          capabilities = capabilities,
           on_attach = function(_, bufnr)
-            for _, server in ipairs(vim.lsp.get_active_clients()) do
-              if server.name == 'tsserver' then
-                vim.lsp.get_client_by_id(server.id).stop()
-              end
+            for _, server in ipairs(vim.lsp.get_active_clients({ name = 'tsserver' })) do
+              vim.lsp.get_client_by_id(server.id).stop()
             end
             on_attach(_, bufnr)
           end,
+        }
+      end,
+      ['tsserver'] = function()
+        lsp.tsserver.setup {
           capabilities = capabilities,
+          on_attach = function(client, bufnr)
+            for _ in ipairs(vim.lsp.get_active_clients({ name = 'volar' })) do
+              vim.lsp.get_client_by_id(client.id).stop()
+            end
+            on_attach(_, bufnr)
+          end,
         }
       end,
     }
