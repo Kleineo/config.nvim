@@ -51,4 +51,13 @@ return {
       return vim.fn.executable 'make' == 1
     end,
   },
+
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+    config = function()
+      vim.keymap.set("n", "<leader>pb", require "telescope".extensions.file_browser.file_browser,
+        { desc = 'Project Browse', noremap = true })
+    end
+  }
 }

@@ -1,4 +1,4 @@
-vim.opt.guicursor = 'n-v-c:block-Cursor/lCursor,i:blinkon400,r-cr:hor20-Cursor'
+vim.opt.guicursor = 'n-c:block-Cursor/lCursor,i-v:blinkon400,r-cr:hor20-Cursor'
 
 vim.o.rnu = true
 vim.o.nu = true
@@ -26,8 +26,6 @@ vim.opt.signcolumn = 'yes'
 vim.opt.isfname:append('@-@')
 
 vim.o.updatetime = 50
-
--- vim.opt.colorcolumn = '80'
 
 vim.o.mouse = 'a'
 
