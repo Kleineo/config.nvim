@@ -44,5 +44,14 @@ return {
     end
   },
 
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    config = function()
+      local c = require("treesitter-context")
+      c.setup {}
+      vim.keymap.set("n", "[c", c.go_to_context, { silent = true })
+    end
+  },
+
   'nvim-treesitter/playground',
 }

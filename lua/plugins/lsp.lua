@@ -1,14 +1,13 @@
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
-    { 'williamboman/mason.nvim', config = true },
-    'williamboman/mason-lspconfig.nvim',
-
-    { 'j-hui/fidget.nvim',       opts = {} },
     'folke/neodev.nvim',
+    'williamboman/mason-lspconfig.nvim',
+    { 'williamboman/mason.nvim', config = true },
+    { 'j-hui/fidget.nvim',       opts = {} },
   },
   config = function()
-    local on_attach = function(_, bufnr)
+    local on_attach = function(client, bufnr)
       local nmap = function(keys, func, desc)
         if desc then
           desc = 'LSP: ' .. desc
@@ -36,10 +35,13 @@ return {
       end, '[W]orkspace [L]ist Folders')
 
       vim.keymap.set({ 'n', 'i' }, '<c-k>', vim.lsp.buf.signature_help, { desc = 'Signature Documentation' })
+
+      if client.server_capabilities.colorProvider then
+        require("document-color").buf_attach(bufnr)
+      end
     end
 
     local servers = {
-      emmet_ls = {},
       gopls = {},
       lua_ls = {
         Lua = {

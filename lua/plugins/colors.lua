@@ -1,36 +1,21 @@
 return {
-  -- {
-  --   'nyngwang/nvimgelion',
-  --   name = 'nvimgelion',
-  --   priority = 1000,
-  --   config = function()
-  --     vim.cmd.colorscheme('nvimgelion')
-  --   end
-  -- },
+  { 'norcalli/nvim-colorizer.lua', config = function() require 'colorizer'.setup() end },
   {
-    'folke/tokyonight.nvim',
-    name = 'tokyonight',
-    priority = 1000,
+    'mrshmllow/document-color.nvim',
     config = function()
-      vim.cmd.colorscheme('tokyonight-night')
+      require("document-color").setup {
+        mode = 'foreground'
+      }
     end
   },
-  -- {
+  {
+  --   'folke/tokyonight.nvim',
   --   'rose-pine/neovim',
-  --   name = 'rose-pine',
-  --   priority = 1000,
-  --   config = function()
-  --     require('rose-pine').setup({
-  --       -- variant = 'moon'
-  --     })
-  --     vim.cmd.colorscheme('rose-pine')
-  --   end
-  -- },
-  -- {
-  --   'navarasu/onedark.nvim',
-  --   priority = 1000,
-  --   config = function()
-  --     vim.cmd.colorscheme 'onedark'
-  --   end,
-  -- },
+    'sainnhe/sonokai',
+    name = 'sonokai',
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme('sonokai')
+    end
+  },
 }
