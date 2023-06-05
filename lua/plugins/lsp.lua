@@ -2,7 +2,6 @@ return {
   'neovim/nvim-lspconfig',
   dependencies = {
     'folke/neodev.nvim',
-    'williamboman/mason-lspconfig.nvim',
     { 'williamboman/mason.nvim', config = true },
     { 'j-hui/fidget.nvim',       opts = {} },
   },
@@ -41,6 +40,13 @@ return {
       end
     end
 
+    require('neodev').setup()
+
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+    local lsp = require 'lspconfig'
+
     local servers = {
       gopls = {},
       lua_ls = {
@@ -53,48 +59,35 @@ return {
       tailwindcss = {},
     }
 
-    require('neodev').setup()
+    for client in pairs(servers) do
+      lsp[client].setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        settings = servers[client],
+      }
+    end
 
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-    local mason_lspconfig = require 'mason-lspconfig'
-
-    mason_lspconfig.setup {
-      ensure_installed = vim.tbl_keys(servers),
+    lsp.volar.setup {
+      filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
+      capabilities = capabilities,
+      on_attach = function(_, bufnr)
+        for _, server in ipairs(vim.lsp.get_active_clients({ name = 'tsserver' })) do
+          vim.lsp.get_client_by_id(server.id).stop()
+        end
+        on_attach(_, bufnr)
+      end,
     }
 
-    local lsp = require 'lspconfig'
-    mason_lspconfig.setup_handlers {
-      function(server_name)
-        lsp[server_name].setup {
-          capabilities = capabilities,
-          on_attach = on_attach,
-          settings = servers[server_name],
-        }
-      end,
-      ['volar'] = function()
-        lsp.volar.setup {
-          filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
-          capabilities = capabilities,
-          on_attach = function(_, bufnr)
-            for _, server in ipairs(vim.lsp.get_active_clients({ name = 'tsserver' })) do
-              vim.lsp.get_client_by_id(server.id).stop()
-            end
-            on_attach(_, bufnr)
-          end,
-        }
-      end,
-      ['tsserver'] = function()
-        lsp.tsserver.setup {
-          capabilities = capabilities,
-          on_attach = function(client, bufnr)
-            for _ in ipairs(vim.lsp.get_active_clients({ name = 'volar' })) do
-              vim.lsp.get_client_by_id(client.id).stop()
-            end
-            on_attach(_, bufnr)
-          end,
-        }
+    lsp.tsserver.setup {
+      capabilities = capabilities,
+      on_attach = function(client, bufnr)
+        local volarEnabled = #vim.lsp.get_active_clients({ name = 'volar' }) > 0
+
+        if volarEnabled then -- stop tsserver
+          vim.lsp.get_client_by_id(client.id).stop()
+          return
+        end
+        on_attach(_, bufnr)
       end,
     }
   end,
