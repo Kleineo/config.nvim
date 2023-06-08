@@ -9,13 +9,15 @@ return {
     end
   },
   {
-  --   'folke/tokyonight.nvim',
-  --   'rose-pine/neovim',
-    'sainnhe/sonokai',
-    name = 'sonokai',
+    -- 'folke/tokyonight.nvim',
+    -- 'rose-pine/neovim',
+    -- 'mofiqul/dracula',
+    -- 'sainnhe/sonokai',
+    'rebelot/kanagawa.nvim',
+    name = 'kanagawa',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme('sonokai')
+      vim.cmd.colorscheme('kanagawa')
     end
   },
 }

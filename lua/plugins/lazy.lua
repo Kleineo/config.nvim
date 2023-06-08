@@ -12,6 +12,13 @@ return {
   { 'dmmulroy/tsc.nvim',        config = function() require('tsc').setup {} end },
 
   {
+    'iamcco/markdown-preview.nvim',
+    config = function()
+      vim.fn['mkdp#util#install']()
+    end,
+  },
+
+  {
     'folke/which-key.nvim',
     config = function()
       vim.o.timeout = true

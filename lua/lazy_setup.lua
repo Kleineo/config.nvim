@@ -18,3 +18,9 @@ require('lazy').setup({
   }
 })
 
+vim.cmd('highlight SignColumn ctermbg=none guibg=none')
+vim.cmd('highlight LineNr ctermbg=none guibg=none')
+vim.cmd('highlight CursorLineNr ctermbg=none guibg=none')
+vim.cmd('highlight GitSignsAdd ctermbg=none guibg=none')
+vim.cmd('highlight GitSignsChange ctermbg=none guibg=none')
+vim.cmd('highlight GitSignsDelete ctermbg=none guibg=none')
