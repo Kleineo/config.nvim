@@ -55,6 +55,7 @@ return {
           telemetry = { enable = false },
         },
       },
+      phpactor = {},
       rust_analyzer = {},
       tailwindcss = {},
     }

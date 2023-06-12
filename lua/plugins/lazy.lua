@@ -4,6 +4,7 @@ return {
   'theprimeagen/vim-be-good',
   'mbbill/undotree',
   'windwp/nvim-ts-autotag',
+  'leafOfTree/vim-matchtag',
 
   { 'numToStr/Comment.nvim',    opts = {} },
   -- { 'windwp/nvim-autopairs',       config = function() require('nvim-autopairs').setup {} end },

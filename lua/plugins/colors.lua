@@ -1,13 +1,7 @@
 return {
+  'mrshmllow/document-color.nvim',
   { 'norcalli/nvim-colorizer.lua', config = function() require 'colorizer'.setup() end },
-  {
-    'mrshmllow/document-color.nvim',
-    config = function()
-      require("document-color").setup {
-        mode = 'foreground'
-      }
-    end
-  },
+
   {
     -- 'folke/tokyonight.nvim',
     -- 'rose-pine/neovim',
