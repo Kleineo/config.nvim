@@ -5,6 +5,20 @@ local build = GetOS() == 'Windows'
     'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
     or 'make'
 
+local ex_to_current_file = function()
+  local cur_file = vim.fn.expand('%:t')
+  vim.cmd.Ex()
+
+  local starting_line = 10 -- line number of the first file
+  local lines = vim.api.nvim_buf_get_lines(0, starting_line, -1, false)
+  for i, file in ipairs(lines) do
+    if (file == cur_file) then
+      vim.api.nvim_win_set_cursor(0, { starting_line + i, 0 })
+      return
+    end
+  end
+end
+
 return {
   {
     'nvim-telescope/telescope.nvim',
@@ -13,7 +27,7 @@ return {
     config = function()
       local builtin = require('telescope.builtin')
 
-      vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
+      vim.keymap.set('n', '<leader>pv', ex_to_current_file)
       vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = 'Project Files' })
       vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Search Git files' })
       vim.keymap.set('n', '<leader>pw', function()
