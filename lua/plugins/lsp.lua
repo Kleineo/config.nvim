@@ -3,7 +3,7 @@ return {
   dependencies = {
     'folke/neodev.nvim',
     { 'williamboman/mason.nvim', config = true },
-    { 'j-hui/fidget.nvim',       opts = {} },
+    { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
   },
   config = function()
     local on_attach = function(client, bufnr)

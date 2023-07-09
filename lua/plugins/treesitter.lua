@@ -1,10 +1,13 @@
 return {
+  'windwp/nvim-ts-autotag',
+  'HiPhish/nvim-ts-rainbow2',
+
   {
     'nvim-treesitter/nvim-treesitter',
     dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
     build = ":TSUpdate",
     config = function()
-      require 'nvim-treesitter.install'.compilers = { 'zig' }
+      -- require 'nvim-treesitter.install'.compilers = { 'zig' }
       require 'nvim-treesitter.configs'.setup {
         ensure_installed = {
           'c', 'cpp',
@@ -20,7 +23,6 @@ return {
           'vim',
           'vue',
         },
-
         auto_install = true,
         sync_install = false,
 
@@ -40,6 +42,25 @@ return {
             node_decremental = '<S-Z>',
           },
         },
+        swap = {
+          enable = true,
+          swap_next = {
+            ['<leader>z'] = '@parameter.inner',
+          },
+          swap_previous = {
+            ['<leader>Z'] = '@parameter.inner',
+          },
+        },
+
+        rainbow = {
+          enable = true,
+          hlgroups = {
+            'TSRainbowYellow',
+            'TSRainbowBlue',
+            'TSRainbowGreen',
+            'TSRainbowViolet',
+          }
+        }
       }
     end
   },

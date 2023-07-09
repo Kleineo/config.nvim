@@ -1,7 +1,9 @@
-vim.opt.guicursor = 'n-c:block-Cursor/lCursor,i-v:blinkon400,r-cr:hor20-Cursor'
+vim.opt.guicursor = 'n-v-c:block,i-v:blinkon400,i-ci:ver25-Cursor2/lCursor2,r-cr:hor20-Cursor'
 
 vim.o.rnu = true
 vim.o.nu = true
+
+vim.opt.wrap = false
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -33,4 +35,3 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 vim.o.completeopt = 'menuone,noselect,preview'
-

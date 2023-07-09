@@ -3,18 +3,19 @@ return {
   'tpope/vim-sleuth',
   'theprimeagen/vim-be-good',
   'mbbill/undotree',
-  'windwp/nvim-ts-autotag',
   'leafOfTree/vim-matchtag',
+  'mg979/vim-visual-multi',
 
   { 'numToStr/Comment.nvim',    opts = {} },
+  { 'folke/todo-comments.nvim', opts = {} },
+  { 'folke/trouble.nvim',       opts = {} },
+  { 'dmmulroy/tsc.nvim',        opts = {} },
+
   -- { 'windwp/nvim-autopairs',       config = function() require('nvim-autopairs').setup {} end },
-  { 'folke/todo-comments.nvim', config = function() require('todo-comments').setup {} end },
-  { 'folke/trouble.nvim',       config = function() require('trouble').setup {} end },
-  { 'dmmulroy/tsc.nvim',        config = function() require('tsc').setup {} end },
 
   {
     'iamcco/markdown-preview.nvim',
-    config = function()
+    build = function()
       vim.fn['mkdp#util#install']()
     end,
   },

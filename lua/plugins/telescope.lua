@@ -1,30 +1,50 @@
 require('utils')
 
-local build = GetOS() == 'Windows'
-    and
+local get_build = function()
+  if (GetOS() == 'Windows') then
+    return
     'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
-    or 'make'
+  else
+    return 'make'
+  end
+end
 
 local ex_to_current_file = function()
   local cur_file = vim.fn.expand('%:t')
   vim.cmd.Ex()
-
-  local starting_line = 10 -- line number of the first file
-  local lines = vim.api.nvim_buf_get_lines(0, starting_line, -1, false)
-  for i, file in ipairs(lines) do
-    if (file == cur_file) then
-      vim.api.nvim_win_set_cursor(0, { starting_line + i, 0 })
-      return
-    end
-  end
+  vim.fn.search('^' .. cur_file .. '$')
 end
 
 return {
+  'nvim-telescope/telescope-ui-select.nvim',
+  'nvim-telescope/telescope-file-browser.nvim',
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = get_build() },
+
   {
     'nvim-telescope/telescope.nvim',
     version = '*',
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons' },
     config = function()
+      require "telescope".setup {
+        extensions = {
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown {}
+          },
+          file_browser = {
+            theme = "ivy",
+            -- hijack_netrw = true,
+            mappings = {
+              ["i"] = {
+                -- your custom insert mode mappings
+              },
+              ["n"] = {
+                -- your custom normal mode mappings
+              },
+            }
+          }
+        }
+      }
+
       local builtin = require('telescope.builtin')
 
       vim.keymap.set('n', '<leader>pv', ex_to_current_file)
@@ -37,8 +57,8 @@ return {
       vim.keymap.set('n', '<leader>ph', builtin.help_tags, { desc = 'Search Help' })
       vim.keymap.set('n', '<leader>pg', builtin.live_grep, { desc = 'Search by Grep' })
       vim.keymap.set('n', '<leader>pd', builtin.diagnostics, { desc = 'Search Diagnostics' })
-
       vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
+      vim.keymap.set('n', '<leader>pr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 
       vim.keymap.set('n', '<leader><space>', function()
         builtin.buffers {
@@ -54,24 +74,12 @@ return {
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
 
-      require('telescope').load_extension('fzf')
-    end
-  },
-
-  {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    build = build,
-    cond = function()
-      return vim.fn.executable 'make' == 1
-    end,
-  },
-
-  {
-    "nvim-telescope/telescope-file-browser.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-    config = function()
       vim.keymap.set("n", "<leader>pb", require "telescope".extensions.file_browser.file_browser,
-        { desc = 'Project Browse', noremap = true })
+        { desc = 'Telescope browser', noremap = true })
+
+      require('telescope').load_extension('fzf')
+      require('telescope').load_extension('file_browser')
+      require('telescope').load_extension('ui-select')
     end
-  }
+  },
 }
