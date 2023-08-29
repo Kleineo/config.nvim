@@ -54,6 +54,7 @@ return {
 
         rainbow = {
           enable = true,
+          disable = { 'jsx', 'tsx' },
           hlgroups = {
             'TSRainbowYellow',
             'TSRainbowBlue',
@@ -64,6 +65,34 @@ return {
       }
     end
   },
+
+  -- probably will need to migrate after updating nvim and treesitter
+  -- {
+  --   'HiPhish/rainbow-delimiters.nvim',
+  --   config = function()
+  --     local rainbow_delimiters = require 'rainbow-delimiters'
+  --     vim.g.rainbow_delimiters = {
+  --       strategy = {
+  --         [''] = rainbow_delimiters.strategy['global'],
+  --         vim = rainbow_delimiters.strategy['local'],
+  --       },
+  --       query = {
+  --         [''] = 'rainbow-delimiters',
+  --         lua = 'rainbow-blocks',
+  --       },
+  --       -- disable = { 'jsx', 'tsx' },
+  --       highlight = {
+  --         'RainbowDelimiterYellow',
+  --         'RainbowDelimiterBlue',
+  --         'RainbowDelimiterGreen',
+  --         'RainbowDelimiterViolet',
+  --         -- 'RainbowDelimiterRed',
+  --         -- 'RainbowDelimiterOrange',
+  --         -- 'RainbowDelimiterCyan',
+  --       },
+  --     }
+  --   end
+  -- },
 
   {
     'nvim-treesitter/nvim-treesitter-context',

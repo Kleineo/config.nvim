@@ -2,8 +2,9 @@ return {
   'neovim/nvim-lspconfig',
   dependencies = {
     'folke/neodev.nvim',
-    { 'williamboman/mason.nvim', config = true },
-    { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
+    'williamboman/mason-lspconfig.nvim',
+    'williamboman/mason.nvim',
+    { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
   },
   config = function()
     local on_attach = function(client, bufnr)
@@ -15,15 +16,17 @@ return {
         vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
       end
 
+      local telescope = require('telescope.builtin')
+
       nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
       nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-      nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-      nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-      nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-      nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-      nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-      nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+      nmap('gd', telescope.lsp_definitions, '[G]oto [D]efinition')
+      nmap('gr', telescope.lsp_references, '[G]oto [R]eferences')
+      nmap('gI', telescope.lsp_implementations, '[G]oto [I]mplementation')
+      nmap('<leader>D', telescope.lsp_type_definitions, 'Type [D]efinition')
+      nmap('<leader>ds', telescope.lsp_document_symbols, '[D]ocument [S]ymbols')
+      nmap('<leader>ws', telescope.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
       nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
       nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
       nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -46,8 +49,11 @@ return {
     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
     local lsp = require 'lspconfig'
+    require("mason").setup()
+    require("mason-lspconfig").setup()
 
     local servers = {
+      cssls = {},
       gopls = {},
       lua_ls = {
         Lua = {
@@ -55,9 +61,11 @@ return {
           telemetry = { enable = false },
         },
       },
-      phpactor = {},
+      intelephense = {},
       rust_analyzer = {},
+      -- sqlls = {},
       tailwindcss = {},
+      yamlls = {},
     }
 
     for client in pairs(servers) do

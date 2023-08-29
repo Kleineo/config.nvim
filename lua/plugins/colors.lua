@@ -1,17 +1,18 @@
 return {
-  'mrshmllow/document-color.nvim',
-  { 'norcalli/nvim-colorizer.lua', config = function() require 'colorizer'.setup() end },
+  { 'norcalli/nvim-colorizer.lua', opts = {} },
+  {
+    'mrshmllow/document-color.nvim',
+    opts = {
+      mode = 'single'
+    }
+  },
 
   {
-    -- 'folke/tokyonight.nvim',
-    -- 'rose-pine/neovim',
-    -- 'mofiqul/dracula',
-    -- 'sainnhe/sonokai',
-    'rebelot/kanagawa.nvim',
-    name = 'kanagawa',
+    'folke/tokyonight.nvim',
     priority = 1000,
+    lazy = false,
     config = function()
-      vim.cmd.colorscheme('kanagawa')
+      vim.cmd.colorscheme('tokyonight-night')
     end
   },
 }

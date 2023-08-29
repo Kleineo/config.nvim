@@ -1,10 +1,13 @@
 return {
   'tpope/vim-fugitive',
   'tpope/vim-sleuth',
+  'sindrets/diffview.nvim',
+
   'theprimeagen/vim-be-good',
   'mbbill/undotree',
   'leafOfTree/vim-matchtag',
   'mg979/vim-visual-multi',
+  'Eandrju/cellular-automaton.nvim',
 
   { 'numToStr/Comment.nvim',    opts = {} },
   { 'folke/todo-comments.nvim', opts = {} },
@@ -34,11 +37,9 @@ return {
     'laytan/tailwind-sorter.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim' },
     build = 'cd formatter && npm i && npm run build',
-    config = function()
-      require('tailwind-sorter').setup {
-        on_save_enabled = true,
-        on_save_pattern = { '*.html', '*.js', '*.jsx', '*.ts', '*.tsx', '*.vue' },
-      }
-    end
+    opts = {
+      on_save_enabled = true,
+      on_save_pattern = { '*.html', '*.js', '*.jsx', '*.ts', '*.tsx', '*.vue' },
+    },
   },
 }

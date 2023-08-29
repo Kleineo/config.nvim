@@ -45,6 +45,7 @@ vim.keymap.set('n', '<leader>s', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left>
 -- vim.keymap.set('n', '<leader>x', '<cmd>!rhmod +x %<CR>', { silent = true })
 
 vim.keymap.set('n', 'Q', '<nop>')
+vim.keymap.set('n', '<Enter>', '<nop>')
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap for dealing with word wrap
