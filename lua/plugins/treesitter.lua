@@ -1,11 +1,10 @@
 return {
   'windwp/nvim-ts-autotag',
-  'HiPhish/nvim-ts-rainbow2',
 
   {
     'nvim-treesitter/nvim-treesitter',
     dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
-    build = ":TSUpdate",
+    build = ':TSUpdate',
     config = function()
       -- require 'nvim-treesitter.install'.compilers = { 'zig' }
       require 'nvim-treesitter.configs'.setup {
@@ -25,6 +24,8 @@ return {
         },
         auto_install = true,
         sync_install = false,
+        ignore_install = {},
+        modules = {},
 
         autotag = { enable = true },
         highlight = {
@@ -51,55 +52,52 @@ return {
             ['<leader>Z'] = '@parameter.inner',
           },
         },
-
-        rainbow = {
-          enable = true,
-          disable = { 'jsx', 'tsx' },
-          hlgroups = {
-            'TSRainbowYellow',
-            'TSRainbowBlue',
-            'TSRainbowGreen',
-            'TSRainbowViolet',
-          }
-        }
       }
     end
   },
 
-  -- probably will need to migrate after updating nvim and treesitter
-  -- {
-  --   'HiPhish/rainbow-delimiters.nvim',
-  --   config = function()
-  --     local rainbow_delimiters = require 'rainbow-delimiters'
-  --     vim.g.rainbow_delimiters = {
-  --       strategy = {
-  --         [''] = rainbow_delimiters.strategy['global'],
-  --         vim = rainbow_delimiters.strategy['local'],
-  --       },
-  --       query = {
-  --         [''] = 'rainbow-delimiters',
-  --         lua = 'rainbow-blocks',
-  --       },
-  --       -- disable = { 'jsx', 'tsx' },
-  --       highlight = {
-  --         'RainbowDelimiterYellow',
-  --         'RainbowDelimiterBlue',
-  --         'RainbowDelimiterGreen',
-  --         'RainbowDelimiterViolet',
-  --         -- 'RainbowDelimiterRed',
-  --         -- 'RainbowDelimiterOrange',
-  --         -- 'RainbowDelimiterCyan',
-  --       },
-  --     }
-  --   end
-  -- },
+  {
+    'HiPhish/rainbow-delimiters.nvim',
+    config = function()
+      local rainbow_delimiters = require 'rainbow-delimiters'
+      vim.g.rainbow_delimiters = {
+        strategy = {
+          [''] = rainbow_delimiters.strategy['global'],
+          vim = rainbow_delimiters.strategy['local'],
+        },
+        query = {
+          [''] = 'rainbow-delimiters',
+          lua = 'rainbow-parens',
+          jsx = 'rainbow-parens',
+          tsx = 'rainbow-parens',
+          vue = 'rainbow-parens',
+          html = 'rainbow-parens',
+        },
+        priority = {
+          [''] = 110,
+          lua = 210,
+        },
+
+        -- blacklist = { 'jsx', 'tsx', 'vue' },
+        highlight = {
+          'RainbowDelimiterGreen',
+          'RainbowDelimiterYellow',
+          'RainbowDelimiterBlue',
+          'RainbowDelimiterViolet',
+          'RainbowDelimiterCyan',
+          -- 'RainbowDelimiterOrange',
+          -- 'RainbowDelimiterRed',
+        },
+      }
+    end
+  },
 
   {
     'nvim-treesitter/nvim-treesitter-context',
     config = function()
-      local c = require("treesitter-context")
+      local c = require 'treesitter-context'
       c.setup {}
-      vim.keymap.set("n", "[c", c.go_to_context, { silent = true })
+      vim.keymap.set('n', '[c', c.go_to_context, { silent = true })
     end
   },
 

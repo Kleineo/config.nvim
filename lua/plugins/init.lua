@@ -1,12 +1,13 @@
 return {
   'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
   'tpope/vim-sleuth',
   'sindrets/diffview.nvim',
 
   'theprimeagen/vim-be-good',
   'mbbill/undotree',
   'leafOfTree/vim-matchtag',
-  'mg979/vim-visual-multi',
+
   'Eandrju/cellular-automaton.nvim',
 
   { 'numToStr/Comment.nvim',    opts = {} },
@@ -14,22 +15,20 @@ return {
   { 'folke/trouble.nvim',       opts = {} },
   { 'dmmulroy/tsc.nvim',        opts = {} },
 
-  -- { 'windwp/nvim-autopairs',       config = function() require('nvim-autopairs').setup {} end },
-
-  {
-    'iamcco/markdown-preview.nvim',
-    build = function()
-      vim.fn['mkdp#util#install']()
-    end,
-  },
+  -- {
+  --     'iamcco/markdown-preview.nvim',
+  --     build = function()
+  --         vim.fn['mkdp#util#install']()
+  --     end,
+  -- },
 
   {
     'folke/which-key.nvim',
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
-      require("which-key").setup({
-        window = { position = 'top' } })
+      require 'which-key'.setup {
+        window = { position = 'top' } }
     end,
   },
 

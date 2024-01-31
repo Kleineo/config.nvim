@@ -49,7 +49,7 @@ return {
         map('n', '<leader>hp', gs.preview_hunk, { desc = 'Preview hunk' })
         map('n', '<leader>hb', function() gs.blame_line { full = true } end, { desc = 'Blame line preview' })
         map('n', '<leader>htb', gs.toggle_current_line_blame, { desc = 'Toggle current line blame' })
-        map('n', '<leader>hd', gs.diffthis, { desc = 'Diffview' })
+        map('n', '<leader>hd', gs.diffthis, { desc = 'Diffview file' })
         map('n', '<leader>htd', gs.toggle_deleted, { desc = 'Toggle deleted' })
 
         map('v', 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'Select hunk' })
