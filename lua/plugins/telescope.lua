@@ -33,21 +33,31 @@ return {
       }
 
       local builtin = require 'telescope.builtin'
+      local themes = require 'telescope.themes'
+      local utils = require 'telescope.utils'
 
       vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Search Git files' })
       vim.keymap.set('n', '<leader>pv', ex_to_current_file)
       vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = 'Project Files' })
+      vim.keymap.set('n', '<leader>pg', builtin.live_grep, { desc = 'Grep Search' })
       vim.keymap.set('n', '<leader>ph', builtin.help_tags, { desc = 'Search Help' })
-      vim.keymap.set('n', '<leader>pg', builtin.live_grep, { desc = 'Search by Grep' })
       vim.keymap.set('n', '<leader>pd', builtin.diagnostics, { desc = 'Search Diagnostics' })
       vim.keymap.set('n', '<leader>pc', builtin.commands, { desc = 'Search Commands' })
       vim.keymap.set('n', '<leader>pm', builtin.man_pages, { desc = 'Search Manual Pages' })
       vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
-      vim.keymap.set('n', '<leader>pr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>pk', builtin.keymaps, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>pw', function()
-        builtin.grep_string { search = vim.fn.input 'Grep > ' }
-      end, { desc = 'Find word' })
+      vim.keymap.set('n', '<leader>pr', builtin.resume, { desc = 'Search Resume' })
+      vim.keymap.set('n', '<leader>pk', builtin.keymaps, { desc = 'Search Keymaps' })
+
+      vim.keymap.set('n', '<leader>pw', function() builtin.grep_string { search = vim.fn.input 'Grep > ' } end,
+        { desc = 'Find word' })
+
+      vim.keymap.set('n', '<leader>ps',
+        function() builtin.find_files { cwd = utils.buffer_dir() } end,
+        { desc = 'Files in current dir' })
+
+      vim.keymap.set('n', '<leader>pa',
+        function() builtin.live_grep { cwd = utils.buffer_dir() } end,
+        { desc = 'Grep Search in current dir' })
 
       -- i love telescope so much
       vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = 'Search Git commits' })
@@ -65,10 +75,7 @@ return {
       end, { desc = '[ ] Find existing buffers' })
 
       vim.keymap.set('n', '<leader>/', function()
-        builtin.current_buffer_fuzzy_find(require 'telescope.themes'.get_dropdown {
-          winblend = 10,
-          previewer = builtin.file_browser,
-        })
+        builtin.current_buffer_fuzzy_find(themes.get_dropdown { previewer = builtin.file_browser, })
       end, { desc = '[/] Fuzzily search in current buffer' })
 
       require 'telescope'.load_extension 'fzf'
