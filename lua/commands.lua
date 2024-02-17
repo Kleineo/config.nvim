@@ -23,12 +23,16 @@ end, {})
 
 vim.api.nvim_create_user_command('W', 'write', {})
 
-vim.keymap.set('n', '<leader>cw', '<cmd>CreateFileInCurrentDir<cr>')
+vim.keymap.set('n', '<leader>^', '<cmd>CreateFileInCurrentDir<cr>')
 
 vim.api.nvim_create_user_command('CreateFileInCurrentDir', function()
   local name = vim.fn.input 'New File Name > '
   local dir = vim.fn.expand '%:p:h'
   local file = dir .. '/' .. name
+
+  if name == '' then
+    return
+  end
 
   vim.cmd 'redraw'
   vim.cmd('edit ' .. file)
