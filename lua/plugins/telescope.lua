@@ -25,6 +25,15 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons', 'BurntSushi/ripgrep', 'sharkdp/fd' },
     config = function()
       require 'telescope'.setup {
+        defaults = {
+          mappings = {
+            i = {
+              -- alt + q
+              ['œ'] = require 'telescope.actions'.send_selected_to_qflist,
+            },
+          },
+        },
+
         extensions = {
           ['ui-select'] = {
             require 'telescope.themes'.get_dropdown {}

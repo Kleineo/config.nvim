@@ -30,11 +30,16 @@ return {
       nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
       nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
       nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-      nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-      nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-      nmap('<leader>wl', function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-      end, '[W]orkspace [L]ist Folders')
+
+      nmap('<leader>f', function()
+        vim.lsp.buf.format {
+          timeout_ms = 2000,
+          filter = function(cl)
+            return cl.name ~= 'volar' and cl.name ~= 'tsserver'
+          end,
+        }
+      end)
+
 
       vim.keymap.set({ 'n', 'i' }, '<c-k>', vim.lsp.buf.signature_help, { desc = 'Signature Documentation' })
 
@@ -59,10 +64,6 @@ return {
       'intelephense',
       'rust_analyzer',
       'tailwindcss',
-      'yamlls',
-      -- 'sqlls',
-      -- 'tsserver',
-      -- 'volar',
     }
 
     mason_lspconfig.setup {

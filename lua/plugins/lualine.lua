@@ -20,15 +20,18 @@ return {
     options = {
       icons_enabled = false,
       theme = 'auto',
+      component_separators = { left = '\\', right = '/' }
     },
     sections = {
+      lualine_a = {},
+
+      lualine_b = { 'diff', 'diagnostics' },
       lualine_c = {
+        'branch',
         { 'filename', path = 1 },
       },
       lualine_x = {
         { lsp_status, icons_enabled = true, icon = ' LSP:' },
-      },
-      lualine_y = {
         'encoding',
         'fileformat',
         'filetype'

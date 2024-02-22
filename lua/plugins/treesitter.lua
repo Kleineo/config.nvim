@@ -38,9 +38,9 @@ return {
         incremental_selection = {
           enable = true,
           keymaps = {
-            init_selection = '<S-space>',
-            node_incremental = '<S-space>',
-            node_decremental = '<S-Z>',
+            init_selection = '<C-space>',
+            node_incremental = '<C-space>',
+            node_decremental = '<C-Z>',
           },
         },
         swap = {
@@ -78,15 +78,12 @@ return {
           lua = 210,
         },
 
-        -- blacklist = { 'jsx', 'tsx', 'vue' },
         highlight = {
           'RainbowDelimiterGreen',
           'RainbowDelimiterYellow',
           'RainbowDelimiterBlue',
           'RainbowDelimiterViolet',
           'RainbowDelimiterCyan',
-          -- 'RainbowDelimiterOrange',
-          -- 'RainbowDelimiterRed',
         },
       }
     end
@@ -95,9 +92,12 @@ return {
   {
     'nvim-treesitter/nvim-treesitter-context',
     config = function()
-      local c = require 'treesitter-context'
-      c.setup {}
-      vim.keymap.set('n', '[c', c.go_to_context, { silent = true })
+      local ctx = require 'treesitter-context'
+      ctx.setup {
+        max_lines = 3,
+        trim_scope = 'outer',
+      }
+      vim.keymap.set('n', '[c', ctx.go_to_context, { silent = true })
     end
   },
 

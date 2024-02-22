@@ -17,6 +17,7 @@ return {
         delay = 300,
       },
       current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
+      attach_to_untracked = true,
 
       on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
@@ -27,20 +28,6 @@ return {
           vim.keymap.set(mode, l, r, opts)
         end
 
-        map('n', ']c', function()
-          if vim.wo.diff then return ']c' end
-          vim.schedule(function() gs.next_hunk() end)
-          return '<Ignore>'
-        end, { expr = true })
-
-        map('n', '[c', function()
-          if vim.wo.diff then return '[c' end
-          vim.schedule(function() gs.prev_hunk() end)
-          return '<Ignore>'
-        end, { expr = true })
-
-        -- map('n', '<leader>hs', gs.stage_hunk)
-        -- map('n', '<leader>hr', gs.reset_hunk)
         map('v', '<leader>hs', function() gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' } end, { desc = 'Stage hunk' })
         map('v', '<leader>hr', function() gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' } end, { desc = 'Reset hunk' })
         map('n', '<leader>hS', gs.stage_buffer, { desc = 'Stage buffer' })
