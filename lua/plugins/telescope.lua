@@ -9,11 +9,19 @@ local get_build = function()
   end
 end
 
-local ex_to_current_file = function()
-  local cur_file = vim.fn.expand '%:t'
-  vim.cmd.Ex()
-  vim.fn.search('^' .. cur_file .. '$')
+local oil = function()
+  vim.cmd 'Oil'
 end
+
+local oil_float = function()
+  require 'oil'.toggle_float()
+end
+
+local oil_nvim_repo = function()
+  require 'oil'.toggle_float '~/.config/nvim'
+end
+
+
 
 return {
   'nvim-telescope/telescope-ui-select.nvim',
@@ -46,7 +54,9 @@ return {
       local utils = require 'telescope.utils'
 
       vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Search Git files' })
-      vim.keymap.set('n', '<leader>pv', ex_to_current_file)
+      vim.keymap.set('n', '<C-b>', oil_float)
+      vim.keymap.set('n', '<leader>pv', oil)
+      vim.keymap.set('n', '<leader>pn', oil_nvim_repo)
       vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = 'Project Files' })
       vim.keymap.set('n', '<leader>pg', builtin.live_grep, { desc = 'Grep Search' })
       vim.keymap.set('n', '<leader>ph', builtin.help_tags, { desc = 'Search Help' })
@@ -57,16 +67,17 @@ return {
       vim.keymap.set('n', '<leader>pr', builtin.resume, { desc = 'Search Resume' })
       vim.keymap.set('n', '<leader>pk', builtin.keymaps, { desc = 'Search Keymaps' })
 
-      vim.keymap.set('n', '<leader>pw', function() builtin.grep_string { search = vim.fn.input 'Grep > ' } end,
-        { desc = 'Find word' })
+      vim.keymap.set('n', '<leader>pw', function()
+        builtin.grep_string { search = vim.fn.input 'Grep > ' }
+      end, { desc = 'Find word' })
 
-      vim.keymap.set('n', '<leader>ps',
-        function() builtin.find_files { cwd = utils.buffer_dir() } end,
-        { desc = 'Files in current dir' })
+      vim.keymap.set('n', '<leader>ps', function()
+        builtin.find_files { cwd = utils.buffer_dir() }
+      end, { desc = 'Files in current dir' })
 
-      vim.keymap.set('n', '<leader>pa',
-        function() builtin.live_grep { cwd = utils.buffer_dir() } end,
-        { desc = 'Grep Search in current dir' })
+      vim.keymap.set('n', '<leader>pa', function()
+        builtin.live_grep { cwd = utils.buffer_dir() }
+      end, { desc = 'Grep Search in current dir' })
 
       -- i love telescope so much
       vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = 'Search Git commits' })
@@ -76,11 +87,9 @@ return {
       vim.keymap.set('n', '<leader>gt', builtin.git_status, { desc = 'Search Git status' })
       vim.keymap.set('n', '<leader>gx', builtin.git_stash, { desc = 'Search Git stash' })
 
+      -- todo: feel like this is kinda useless
       vim.keymap.set('n', '<leader><space>', function()
-        builtin.buffers {
-          only_cwd = true,
-          sort_lastused = true,
-        }
+        builtin.buffers { only_cwd = true, sort_lastused = true }
       end, { desc = '[ ] Find existing buffers' })
 
       vim.keymap.set('n', '<leader>/', function()
