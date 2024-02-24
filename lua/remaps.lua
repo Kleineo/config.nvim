@@ -40,7 +40,7 @@ vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 
 
 vim.keymap.set('n', '<leader>s', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>')
--- vim.keymap.set('n', '<leader>x', '<cmd>!rhmod +x %<CR>', { silent = true })
+vim.keymap.set('n', '<leader>x', '<cmd>!rhmod +x %<CR>', { silent = true })
 
 
 -- Remap for dealing with word wrap
@@ -62,5 +62,6 @@ vim.keymap.set('n', '<leader>xq', '<cmd>TroubleToggle quickfix<cr>', { silent = 
 vim.keymap.set('n', 'gR', '<cmd>TroubleToggle lsp_references<cr>', { silent = true, noremap = true })
 
 
--- go remap
+-- go remaps
 vim.keymap.set('n', '<leader>er', 'oif err != nil {<Enter>}<Esc>O')
+vim.keymap.set('n', '<leader>ej', '_yiw~$a `json:"<Esc>pa"`<Esc>V=')
