@@ -20,13 +20,15 @@ return {
     options = {
       icons_enabled = false,
       theme = 'auto',
-      component_separators = { left = '\\', right = '/' }
+      component_separators = { left = '', right = '' }
     },
     sections = {
       lualine_a = {},
+      lualine_b = { },
 
-      lualine_b = { 'diff', 'diagnostics' },
       lualine_c = {
+        'diff',
+        'diagnostics',
         'branch',
         { 'filename', path = 1 },
       },

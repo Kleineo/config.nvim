@@ -66,6 +66,7 @@ return {
       vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
       vim.keymap.set('n', '<leader>pr', builtin.resume, { desc = 'Search Resume' })
       vim.keymap.set('n', '<leader>pk', builtin.keymaps, { desc = 'Search Keymaps' })
+      vim.keymap.set('n', '<leader>pq', builtin.quickfix, { desc = 'Search Quickfix' })
 
       vim.keymap.set('n', '<leader>pw', function()
         builtin.grep_string { search = vim.fn.input 'Grep > ' }

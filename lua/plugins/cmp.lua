@@ -1,6 +1,9 @@
 return {
   'hrsh7th/nvim-cmp',
-  dependencies = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-path', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip', 'hrsh7th/cmp-nvim-lsp-signature-help', 'rafamadriz/friendly-snippets' },
+  dependencies = {
+    'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-path', 'hrsh7th/cmp-nvim-lsp-signature-help',
+    'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip', 'rafamadriz/friendly-snippets'
+  },
 
   config = function()
     local cmp = require 'cmp'
@@ -21,7 +24,7 @@ return {
         ['<C-j>'] = cmp.mapping.scroll_docs(-4),
         ['<C-k>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete {},
-        ['<C-y>'] = cmp.mapping.confirm {
+        ['<C-Enter>'] = cmp.mapping.confirm {
           behavior = cmp.ConfirmBehavior.Replace,
           select = true,
         },

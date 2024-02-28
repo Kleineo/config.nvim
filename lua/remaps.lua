@@ -1,5 +1,8 @@
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
-vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
+vim.keymap.set('n', '<leader>gs', function()
+  vim.cmd.Git()
+  vim.cmd 'wincmd H'
+end)
 
 vim.keymap.set('n', '<C-n>', '<nop>')
 vim.keymap.set('n', 'Q', '<nop>')
