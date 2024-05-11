@@ -1,9 +1,10 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+vim.opt.termguicolors = true
 
+require 'lazy_setup'
 require 'remaps'
 require 'set'
-require 'lazy_setup'
 require 'commands'
 
 -- See `:help vim.highlight.on_yank()`

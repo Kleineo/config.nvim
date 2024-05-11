@@ -9,9 +9,11 @@ return {
 
   'Eandrju/cellular-automaton.nvim',
 
-  { 'numToStr/Comment.nvim',    opts = {} },
   { 'folke/todo-comments.nvim', opts = {} },
-  { 'folke/trouble.nvim',       opts = { height = 15, } },
+  { 'numToStr/Comment.nvim',         opts = {} },
+  { 'folke/trouble.nvim',            opts = { height = 15, } },
+
+  { 'mrjones2014/smart-splits.nvim', lazy = false,           opts = {} },
 
   {
     'iamcco/markdown-preview.nvim',

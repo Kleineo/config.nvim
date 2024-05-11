@@ -9,23 +9,20 @@ local get_fzf_native_build = function()
   end
 end
 
-local oil = require 'oil'
-
-local open_oil = function()
-  vim.cmd 'Oil'
-end
-
-local oil_float = function()
-  oil.toggle_float()
-end
-
-local oil_nvim_repo = function()
-  oil.toggle_float '~/.config/nvim'
-end
-
-local oil_home_dir = function()
-  oil.toggle_float '~'
-end
+local oil = {
+  open = function()
+    vim.cmd 'Oil'
+  end,
+  open_float = function()
+    require 'oil'.toggle_float()
+  end,
+  open_nvim_dir = function()
+    require 'oil'.toggle_float '~/.config/nvim'
+  end,
+  open_home_dir = function()
+    require 'oil'.toggle_float '~'
+  end
+}
 
 
 return {
@@ -59,10 +56,10 @@ return {
       local utils = require 'telescope.utils'
 
       vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Search Git files' })
-      vim.keymap.set('n', '<leader>pb', oil_float, { desc = 'Oil floating window' })
-      vim.keymap.set('n', '<leader>pv', open_oil, { desc = 'Oil current dir' })
-      vim.keymap.set('n', '<leader>pn', oil_nvim_repo, { desc = 'Oil nvim repo' })
-      vim.keymap.set('n', '<leader>p~', oil_home_dir, { desc = 'Oil home dir' })
+      vim.keymap.set('n', '<leader>pb', oil.open_float, { desc = '[OIL] floating window' })
+      vim.keymap.set('n', '<leader>pv', oil.open, { desc = '[OIL] current dir' })
+      vim.keymap.set('n', '<leader>pn', oil.open_nvim_dir, { desc = '[OIL] nvim repo' })
+      vim.keymap.set('n', '<leader>p~', oil.open_home_dir, { desc = '[OIL] home dir' })
       vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = 'Project Files' })
       vim.keymap.set('n', '<leader>pg', builtin.live_grep, { desc = 'Grep Search' })
       vim.keymap.set('n', '<leader>ph', builtin.help_tags, { desc = 'Search Help' })
@@ -94,8 +91,7 @@ return {
       vim.keymap.set('n', '<leader>gt', builtin.git_status, { desc = 'Search Git status' })
       vim.keymap.set('n', '<leader>gx', builtin.git_stash, { desc = 'Search Git stash' })
 
-      -- todo: feel like this is kinda useless
-      vim.keymap.set('n', '<leader><space>', function()
+      vim.keymap.set('n', '<leader>b', function()
         builtin.buffers { only_cwd = true, sort_lastused = true }
       end, { desc = '[ ] Find existing buffers' })
 

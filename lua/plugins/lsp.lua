@@ -28,7 +28,6 @@ return {
       nmap('<leader>ds', telescope.lsp_document_symbols, '[D]ocument [S]ymbols')
       nmap('<leader>ws', telescope.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
       nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-      nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
       nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
       nmap('<leader>f', function()
@@ -41,7 +40,7 @@ return {
       end)
 
 
-      vim.keymap.set({ 'n', 'i' }, '<c-k>', vim.lsp.buf.signature_help, { desc = 'Signature Documentation' })
+      vim.keymap.set({ 'n', 'i' }, '<C-S-k>', vim.lsp.buf.signature_help, { desc = 'Signature Documentation' })
 
       if client.server_capabilities.colorProvider then
         require 'document-color'.buf_attach(bufnr)
@@ -70,14 +69,6 @@ return {
     mason_lspconfig.setup {
       ensure_installed = servers,
     }
-
-    -- for client in pairs(servers) do
-    --   lsp[client].setup {
-    --     on_attach = on_attach,
-    --     capabilities = capabilities,
-    --     settings = servers[client],
-    --   }
-    -- end
 
     mason_lspconfig.setup_handlers {
       function(server_name)
