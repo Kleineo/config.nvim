@@ -64,6 +64,7 @@ return {
       'intelephense',
       'rust_analyzer',
       'tailwindcss',
+      'emmet_language_server',
     }
 
     mason_lspconfig.setup {
@@ -85,6 +86,18 @@ return {
           on_attach = on_attach,
           settings = servers[server_name],
           -- filetypes = (servers[server_name] or {}).filetypes,
+        }
+      end,
+
+      ['emmet_language_server'] = function()
+        lsp.emmet_language_server.setup {
+          filetypes = { 'html', 'javascript', 'javascriptreact', 'css', 'less', 'sass', 'scss', 'typescriptreact', 'vue' },
+          init_options = {
+            includeLanguages = {
+              javascriptreact = 'html',
+              typescriptreact = 'html',
+            },
+          },
         }
       end,
 

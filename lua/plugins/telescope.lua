@@ -1,6 +1,6 @@
 require 'utils'
 
-local get_build = function()
+local get_fzf_native_build = function()
   if (GetOS() == 'Windows') then
     return
     'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
@@ -9,23 +9,28 @@ local get_build = function()
   end
 end
 
-local oil = function()
+local oil = require 'oil'
+
+local open_oil = function()
   vim.cmd 'Oil'
 end
 
 local oil_float = function()
-  require 'oil'.toggle_float()
+  oil.toggle_float()
 end
 
 local oil_nvim_repo = function()
-  require 'oil'.toggle_float '~/.config/nvim'
+  oil.toggle_float '~/.config/nvim'
 end
 
+local oil_home_dir = function()
+  oil.toggle_float '~'
+end
 
 
 return {
   'nvim-telescope/telescope-ui-select.nvim',
-  { 'nvim-telescope/telescope-fzf-native.nvim', build = get_build() },
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = get_fzf_native_build() },
 
   {
     'nvim-telescope/telescope.nvim',
@@ -54,9 +59,10 @@ return {
       local utils = require 'telescope.utils'
 
       vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Search Git files' })
-      vim.keymap.set('n', '<C-b>', oil_float)
-      vim.keymap.set('n', '<leader>pv', oil)
-      vim.keymap.set('n', '<leader>pn', oil_nvim_repo)
+      vim.keymap.set('n', '<leader>pb', oil_float, { desc = 'Oil floating window' })
+      vim.keymap.set('n', '<leader>pv', open_oil, { desc = 'Oil current dir' })
+      vim.keymap.set('n', '<leader>pn', oil_nvim_repo, { desc = 'Oil nvim repo' })
+      vim.keymap.set('n', '<leader>p~', oil_home_dir, { desc = 'Oil home dir' })
       vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = 'Project Files' })
       vim.keymap.set('n', '<leader>pg', builtin.live_grep, { desc = 'Grep Search' })
       vim.keymap.set('n', '<leader>ph', builtin.help_tags, { desc = 'Search Help' })

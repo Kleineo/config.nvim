@@ -13,30 +13,36 @@ local function lsp_status()
   return table.concat(lsp_names, ', ')
 end
 
+local function time()
+  return os.date '%X'
+end
 
 return {
   'nvim-lualine/lualine.nvim',
+  lazy = false,
   opts = {
     options = {
       icons_enabled = false,
       theme = 'auto',
-      component_separators = { left = '', right = '' }
+      component_separators = { left = '', right = '' },
+      globalstatus = true,
     },
     sections = {
       lualine_a = {},
-      lualine_b = { },
-
+      lualine_b = {},
       lualine_c = {
+        'branch',
         'diff',
         'diagnostics',
-        'branch',
         { 'filename', path = 1 },
       },
+
       lualine_x = {
         { lsp_status, icons_enabled = true, icon = ' LSP:' },
-        'encoding',
-        'fileformat',
-        'filetype'
+        -- 'encoding',
+        -- 'fileformat',
+        { time },
+        -- 'filetype',
       },
     }
   },

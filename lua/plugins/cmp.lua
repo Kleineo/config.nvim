@@ -24,7 +24,7 @@ return {
         ['<C-j>'] = cmp.mapping.scroll_docs(-4),
         ['<C-k>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete {},
-        ['<C-Enter>'] = cmp.mapping.confirm {
+        ['<C-y>'] = cmp.mapping.confirm {
           behavior = cmp.ConfirmBehavior.Replace,
           select = true,
         },
