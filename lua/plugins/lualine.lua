@@ -13,10 +13,6 @@ local function lsp_status()
   return table.concat(lsp_names, ', ')
 end
 
-local function time()
-  return os.date '%X'
-end
-
 return {
   'nvim-lualine/lualine.nvim',
   lazy = false,
@@ -41,7 +37,6 @@ return {
         { lsp_status, icons_enabled = true, icon = ' LSP:' },
         -- 'encoding',
         -- 'fileformat',
-        { time },
         -- 'filetype',
       },
     }
