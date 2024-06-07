@@ -4,15 +4,14 @@ return {
   opts = {
     columns = { 'icon' },
     skip_confirm_for_simple_edits = true,
+
     keymaps = {
-      ['<C-s>'] = 'actions.select_split',
-      ['<C-h>'] = 'actions.select_vsplit',
-      ['<C-v>'] = 'actions.preview',
-      -- ['<C-d>'] = 'actions.preview_scroll_up',
-      -- ['<C-u>'] = 'actions.preview_scroll_down',
+      ['<C-s>'] = false,
+      ['<C-e>'] = 'actions.select_split',
+      ['<C-h>'] = false,
       ['<C-p>'] = false,
+      ['<C-t>'] = 'actions.preview',
       ['.'] = 'actions.toggle_hidden',
-      ['g.'] = false,
     },
 
     float = {

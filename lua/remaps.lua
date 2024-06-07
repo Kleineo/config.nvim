@@ -25,6 +25,7 @@ vim.keymap.set('n', 'N', 'Nzzzv')
 vim.keymap.set('v', '<', '<gv', { noremap = true, silent = false })
 vim.keymap.set('v', '>', '>gv', { noremap = true, silent = false })
 
+-- yanking, deleting
 vim.keymap.set('x', '<leader>p', '"_dP')
 vim.keymap.set('n', '<leader>Y', '"+Y')
 vim.keymap.set('n', '<leader>y', '"+y')
@@ -33,28 +34,31 @@ vim.keymap.set('n', '<leader>d', '"_d')
 vim.keymap.set('v', '<leader>d', '"_d')
 vim.keymap.set('v', '<leader>c', '"_c')
 
+-- tabs
+vim.keymap.set('n', 'Tn', '<cmd>tabnext<cr>')
+vim.keymap.set('n', 'Tp', '<cmd>tabprevious<cr>')
+
 -- todo
 -- vim.keymap.set('n', '<C-k>', '<cmd>cnext<CR>zz')
 -- vim.keymap.set('n', '<C-j>', '<cmd>cprev<CR>zz')
 -- vim.keymap.set('n', '<leader>k', '<cmd>lnext<CR>zz')
 -- vim.keymap.set('n', '<leader>j', '<cmd>lprev<CR>zz')
 
-vim.keymap.set('n', '<C-h>', ':wincmd h<CR>')
-vim.keymap.set('n', '<C-j>', ':wincmd j<CR>')
-vim.keymap.set('n', '<C-k>', ':wincmd k<CR>')
-vim.keymap.set('n', '<C-l>', ':wincmd l<CR>')
+-- vim.keymap.set('n', '<C-h>', ':wincmd h<CR>')
+-- vim.keymap.set('n', '<C-j>', ':wincmd j<CR>')
+-- vim.keymap.set('n', '<C-k>', ':wincmd k<CR>')
+-- vim.keymap.set('n', '<C-l>', ':wincmd l<CR>')
 
--- alt+h...alt+l
-vim.keymap.set('n', '˙', require('smart-splits').resize_left)
-vim.keymap.set('n', '∆', require('smart-splits').resize_down)
-vim.keymap.set('n', '˚', require('smart-splits').resize_up)
-vim.keymap.set('n', '¬', require('smart-splits').resize_right)
+vim.keymap.set('n', '<A-H>', require('smart-splits').resize_left)
+vim.keymap.set('n', '<A-J>', require('smart-splits').resize_down)
+vim.keymap.set('n', '<A-K>', require('smart-splits').resize_up)
+vim.keymap.set('n', '<A-L>', require('smart-splits').resize_right)
 -- moving between splits
-vim.keymap.set('n', '<C-h>', require('smart-splits').move_cursor_left)
-vim.keymap.set('n', '<C-j>', require('smart-splits').move_cursor_down)
-vim.keymap.set('n', '<C-k>', require('smart-splits').move_cursor_up)
-vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right)
-vim.keymap.set('n', '<C-\\>', require('smart-splits').move_cursor_previous)
+vim.keymap.set('n', '<A-h>', require('smart-splits').move_cursor_left) -- alt + h
+vim.keymap.set('n', '<A-j>', require('smart-splits').move_cursor_down) -- alt + j
+vim.keymap.set('n', '<A-k>', require('smart-splits').move_cursor_up) -- alt + k
+vim.keymap.set('n', '<A-l>', require('smart-splits').move_cursor_right) -- alt + l
+vim.keymap.set('n', '<A-/>', require('smart-splits').move_cursor_previous) -- alt + /
 -- swapping buffers between windows
 vim.keymap.set('n', '<leader><leader>h', require('smart-splits').swap_buf_left)
 vim.keymap.set('n', '<leader><leader>j', require('smart-splits').swap_buf_down)
@@ -66,7 +70,8 @@ vim.keymap.set('n', '<leader><leader>l', require('smart-splits').swap_buf_right)
 vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 
 
-vim.keymap.set('n', '<leader>s', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>')
+vim.keymap.set('n', '<leader>fs', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>')
+vim.keymap.set('n', '<leader>ls', ':s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>')
 vim.keymap.set('n', '<leader>x', '<cmd>!rhmod +x %<CR>', { silent = true })
 
 

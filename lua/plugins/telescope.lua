@@ -38,8 +38,7 @@ return {
         defaults = {
           mappings = {
             i = {
-              -- alt + q
-              ['œ'] = require 'telescope.actions'.send_selected_to_qflist,
+              ['<A-q>'] = require 'telescope.actions'.send_selected_to_qflist,
             },
           },
         },
@@ -56,11 +55,12 @@ return {
       local utils = require 'telescope.utils'
 
       vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Search Git files' })
-      vim.keymap.set('n', '<leader>pb', oil.open_float, { desc = '[OIL] floating window' })
+      vim.keymap.set('n', '<leader>ob', oil.open_float, { desc = '[OIL] floating window' })
       vim.keymap.set('n', '<leader>pv', oil.open, { desc = '[OIL] current dir' })
-      vim.keymap.set('n', '<leader>pn', oil.open_nvim_dir, { desc = '[OIL] nvim repo' })
-      vim.keymap.set('n', '<leader>p~', oil.open_home_dir, { desc = '[OIL] home dir' })
+      vim.keymap.set('n', '<leader>on', oil.open_nvim_dir, { desc = '[OIL] nvim repo' })
+      vim.keymap.set('n', '<leader>o~', oil.open_home_dir, { desc = '[OIL] home dir' })
       vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = 'Project Files' })
+      vim.keymap.set('n', '<leader>pw', builtin.find_files, { desc = 'Project Files' })
       vim.keymap.set('n', '<leader>pg', builtin.live_grep, { desc = 'Grep Search' })
       vim.keymap.set('n', '<leader>ph', builtin.help_tags, { desc = 'Search Help' })
       vim.keymap.set('n', '<leader>pd', builtin.diagnostics, { desc = 'Search Diagnostics' })
@@ -70,10 +70,16 @@ return {
       vim.keymap.set('n', '<leader>pr', builtin.resume, { desc = 'Search Resume' })
       vim.keymap.set('n', '<leader>pk', builtin.keymaps, { desc = 'Search Keymaps' })
       vim.keymap.set('n', '<leader>pq', builtin.quickfix, { desc = 'Search Quickfix' })
-
       vim.keymap.set('n', '<leader>pw', function()
-        builtin.grep_string { search = vim.fn.input 'Grep > ' }
+        local input = vim.fn.input 'Grep > '
+        if input ~= '' then
+          builtin.grep_string { search = input }
+        end
       end, { desc = 'Find word' })
+
+      vim.keymap.set('n', '<leader>pW', function()
+        builtin.grep_string { search = vim.fn.expand '<cword>' }
+      end)
 
       vim.keymap.set('n', '<leader>ps', function()
         builtin.find_files { cwd = utils.buffer_dir() }
@@ -83,14 +89,6 @@ return {
         builtin.live_grep { cwd = utils.buffer_dir() }
       end, { desc = 'Grep Search in current dir' })
 
-      -- i love telescope so much
-      vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = 'Search Git commits' })
-      vim.keymap.set('n', '<leader>gh', builtin.git_bcommits, { desc = 'Search buffer Git commits' })
-      -- vim.keymap.set('n', '<leader>gr', builtin.git_bcommits_range, { desc = 'Search buffer Git commits in a range' })
-      vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = 'Search Git branches' })
-      vim.keymap.set('n', '<leader>gt', builtin.git_status, { desc = 'Search Git status' })
-      vim.keymap.set('n', '<leader>gx', builtin.git_stash, { desc = 'Search Git stash' })
-
       vim.keymap.set('n', '<leader>b', function()
         builtin.buffers { only_cwd = true, sort_lastused = true }
       end, { desc = '[ ] Find existing buffers' })
@@ -98,6 +96,12 @@ return {
       vim.keymap.set('n', '<leader>/', function()
         builtin.current_buffer_fuzzy_find(themes.get_dropdown { previewer = builtin.file_browser, })
       end, { desc = '[/] Fuzzily search in current buffer' })
+
+      vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = 'Search Git commits' })
+      vim.keymap.set('n', '<leader>gh', builtin.git_bcommits, { desc = 'Search buffer Git commits' })
+      vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = 'Search Git branches' })
+      vim.keymap.set('n', '<leader>gt', builtin.git_status, { desc = 'Search Git status' })
+      vim.keymap.set('n', '<leader>gx', builtin.git_stash, { desc = 'Search Git stash' })
 
       require 'telescope'.load_extension 'fzf'
       require 'telescope'.load_extension 'ui-select'
