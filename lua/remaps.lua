@@ -35,8 +35,8 @@ vim.keymap.set('v', '<leader>d', '"_d')
 vim.keymap.set('v', '<leader>c', '"_c')
 
 -- tabs
-vim.keymap.set('n', 'Tn', '<cmd>tabnext<cr>')
-vim.keymap.set('n', 'Tp', '<cmd>tabprevious<cr>')
+vim.keymap.set('n', 'TN', '<cmd>tabnext<cr>')
+vim.keymap.set('n', 'TP', '<cmd>tabprevious<cr>')
 
 -- todo
 -- vim.keymap.set('n', '<C-k>', '<cmd>cnext<CR>zz')
@@ -44,16 +44,11 @@ vim.keymap.set('n', 'Tp', '<cmd>tabprevious<cr>')
 -- vim.keymap.set('n', '<leader>k', '<cmd>lnext<CR>zz')
 -- vim.keymap.set('n', '<leader>j', '<cmd>lprev<CR>zz')
 
--- vim.keymap.set('n', '<C-h>', ':wincmd h<CR>')
--- vim.keymap.set('n', '<C-j>', ':wincmd j<CR>')
--- vim.keymap.set('n', '<C-k>', ':wincmd k<CR>')
--- vim.keymap.set('n', '<C-l>', ':wincmd l<CR>')
-
 vim.keymap.set('n', '<A-H>', require('smart-splits').resize_left)
 vim.keymap.set('n', '<A-J>', require('smart-splits').resize_down)
 vim.keymap.set('n', '<A-K>', require('smart-splits').resize_up)
 vim.keymap.set('n', '<A-L>', require('smart-splits').resize_right)
--- moving between splits
+
 vim.keymap.set('n', '<A-h>', require('smart-splits').move_cursor_left) -- alt + h
 vim.keymap.set('n', '<A-j>', require('smart-splits').move_cursor_down) -- alt + j
 vim.keymap.set('n', '<A-k>', require('smart-splits').move_cursor_up) -- alt + k

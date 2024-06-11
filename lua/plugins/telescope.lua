@@ -9,22 +9,6 @@ local get_fzf_native_build = function()
   end
 end
 
-local oil = {
-  open = function()
-    vim.cmd 'Oil'
-  end,
-  open_float = function()
-    require 'oil'.toggle_float()
-  end,
-  open_nvim_dir = function()
-    require 'oil'.toggle_float '~/.config/nvim'
-  end,
-  open_home_dir = function()
-    require 'oil'.toggle_float '~'
-  end
-}
-
-
 return {
   'nvim-telescope/telescope-ui-select.nvim',
   { 'nvim-telescope/telescope-fzf-native.nvim', build = get_fzf_native_build() },
@@ -55,10 +39,6 @@ return {
       local utils = require 'telescope.utils'
 
       vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Search Git files' })
-      vim.keymap.set('n', '<leader>ob', oil.open_float, { desc = '[OIL] floating window' })
-      vim.keymap.set('n', '<leader>pv', oil.open, { desc = '[OIL] current dir' })
-      vim.keymap.set('n', '<leader>on', oil.open_nvim_dir, { desc = '[OIL] nvim repo' })
-      vim.keymap.set('n', '<leader>o~', oil.open_home_dir, { desc = '[OIL] home dir' })
       vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = 'Project Files' })
       vim.keymap.set('n', '<leader>pw', builtin.find_files, { desc = 'Project Files' })
       vim.keymap.set('n', '<leader>pg', builtin.live_grep, { desc = 'Grep Search' })
